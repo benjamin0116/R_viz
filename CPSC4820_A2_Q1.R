@@ -8,14 +8,20 @@
 
 
 # Q1 Load the tidyverse and ggplot library. [2 Marks]
-
+library(tidyverse)
+library(ggplot2)
 
 # Q2 Read and view the coal dataset properly. [2 Marks]
+filepath <- "~/Library/Mobile Documents/com~apple~CloudDocs/Data Analytics/Semister 4/CPSC4820/Assignments/2/R_viz"
+filename <- "coal.csv"
+
+coal <- read.csv(paste(filepath,"/",filename,sep=""),header = TRUE, skip = 2, check.names=FALSE)
+coal <- read.csv(paste(filepath,"/",filename,sep=""),header = TRUE)
 
 
 # Q3 Rename the first column as region.
 # (The first column has a garbage name) [2 Marks]
-
+colnames(coal)[1]<-"region"
 
 # Q4 Take a close look at the Dataset.
 # Most of the columns are redundant
@@ -23,7 +29,8 @@
 # Convert from a wide dataset to a long dataset.
 # After conversion it should only have
 # "Region", "year" and "coal_consumption" as its columns. [4 Marks]
-
+coal_long <- coal %>%
+  pivot_longer(!region, names_to = "year", values_to = "coal_consumption")
 
 
 
