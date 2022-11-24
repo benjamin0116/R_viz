@@ -29,7 +29,9 @@ colnames(coal)[1]<-"region"
 # "Region", "year" and "coal_consumption" as its columns. [4 Marks]
 coal_long <-
   coal %>%
-  pivot_longer(!region, names_to = "year", values_to = "coal_consumption")
+  pivot_longer(cols=!region,
+               names_to = "year",
+               values_to = "coal_consumption")
 
 
 # Q5 Convert years to integers and coal_consumption to numeric. [3 Marks]
