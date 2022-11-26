@@ -114,14 +114,20 @@ ssadisability_long<-
   mutate(add_column(.,Percentage_of_Online = (Internet/Total)*100))%>%
   mutate(add_column(.,Percentage_of_Offine = 100 - Percentage_of_Online))
 
-ggplot(data=ssadisability_long,
-       aes(y=Percentage_of_Applications, x=date)
-) +
-  geom_bar(stat="identity", fill="darkblue")+
-  ggtitle("Total Coal Consumption by Noncountries")+
-  ylab('Non-countries')+
-  xlab('Total Coal Consumption')
+df_plot<-
+ssadisability_long %>%
+  pivot_longer(cols=c('Percentage_of_Online','Percentage_of_Offine'),
+               names_to = "Appliaction_type",
+               values_to = "Applications")
 
+ggplot(df_plot, aes(x=Date, y=Applications, fill=Appliaction_type)) +
+  geom_bar(stat="identity") +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  scale_fill_manual(labels = c("Offline Applications", "Online Appliactions"), values = c("Grey","Red")) +
+  scale_x_date(name="Date",date_minor_breaks = "1 months",date_labels = "%m-%Y") +
+  ggtitle("Percentage of Applications by type") +
+  ylab('% of Applications') +
+  xlab('Date')
 
 
 
